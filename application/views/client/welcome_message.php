@@ -405,15 +405,39 @@
 <div id="tabs-6" class="haunted-location">
     <h4>Haunted Locations</h4>
 
-    <?php $attributes = array('class' => 'nice', 'id' => 'profileForm');
+	<div class="row">
+		<div class="twelve columns">
+			<table id="locations" class="tablesorter">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zip</th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+    <?php $attributes = array('class' => 'nice', 'id' => 'locationForm');
     echo form_open('/client/locationUpdate', $attributes);
     ?>
+
+	<input type="hidden" name="locationid" value=""/>
+	<input type="hidden" name="userid" value="<?= $user_id;?>"/>
+
     <?=form_fieldset('');?>
     <div class="row">
         <div class="twelve columns">
             <div class="six columns">
-                <?=form_label('Company Name', 'haunted_company');?>
-                <input type="text" name="haunted_company" id="haunted_company" class="input-text" placeholder="Company Name"
+                <?=form_label('Location Name', 'location_name');?>
+                <input type="text" name="location_name" id="location_name" class="input-text" placeholder="Location Name"
                        value="">
 
             </div>
@@ -423,8 +447,8 @@
 
     <div class="row">
         <div class="twelve columns">
-            <?=form_label('Street Address', 'haunted_street');?>
-            <input type="text" name="haunted_street" id="haunted_street" class="input-text" placeholder="Street Address"
+            <?=form_label('Street Address', 'location_street');?>
+            <input type="text" name="location_street" id="location_street" class="input-text" placeholder="Street Address"
                    value="">
 
         </div>
@@ -432,26 +456,33 @@
     <div class="row">
         <div class="twelve columns">
             <div class="six columns">
-                <?=form_label('City', 'haunted_city');?>
-                <input type="text" name="haunted_city" id="haunted_city" class="input-text" placeholder="Street Address"
+                <?=form_label('City', 'location_city');?>
+                <input type="text" name="location_city" id="location_city" class="input-text" placeholder="City"
                        value="">
 
             </div>
             <div class="three columns">
-                <?=form_label('State', 'haunted_state');?>
-                <input type="text" name="haunted_state" id="haunted_state" class="small input-text" placeholder="State"
+                <?=form_label('State', 'location_state');?>
+                <input type="text" name="location_state" id="location_state" class="small input-text" placeholder="State"
                        value="">
 
             </div>
             <div class="three columns">
-                <?=form_label('Zip', 'haunted_zip');?>
-                <input type="text" name="haunted_zip" id="haunted_zip" class="small input-text" placeholder="Zip"
+                <?=form_label('Zip', 'location_zip');?>
+                <input type="text" name="location_zip" id="location_zip" class="small input-text" placeholder="Zip"
                        value="">
 
             </div>
         </div>
     </div>
-    <div class="row">
+	<div class="row">
+		<div class="twelve columns">
+			<textarea name="location_description" id="locationeditor"></textarea>
+			<?php echo display_ckeditor($ckeditor2); ?>
+			<input type="hidden" name="userid" value="<?= $user_id;?>"/>
+		</div>
+	</div>
+	<div class="row">
         <div class="twelve columns">
             <?= form_submit('mysubmit', 'Submit Updates!'); ?>
         </div>

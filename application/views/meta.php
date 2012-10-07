@@ -12,12 +12,14 @@
 
 
 <!-- Included CSS Files -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/foundation.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/foundation.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/app.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/superfish-min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
 
-
+<?php if (isset($map)) {
+	echo $map['js'];
+} ?>
 
 <!--[if lt IE 9]>
 <link rel="stylesheet" href="<?php echo base_url();?>/assets/stylesheets/ie.css">
@@ -29,13 +31,10 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+<script src="<?php echo base_url();?>assets/js/libs/foundation.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/libs/modernizr.foundation.js"></script>
-<script src="<?php echo base_url();?>assets/js/libs/foundation.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery_cycle.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/jquery.cookie.js"></script>
-<script type="text/javascript" src="/assets/js/superfish-min.js"></script>
-<script src="<?php echo base_url();?>assets/js/app.js"></script>
+
+
 
 

@@ -18,6 +18,7 @@
 			$this->load->model('Client_model');
 			$this->load->model('Gallery_model');
 			$this->load->model('Category_model');
+			$this->load->model('Location_model');
 			$this->load->model('Pages_model');
 			$this->load->model('Faq_model');
 			$this->load->helper('ckeditor');
@@ -61,6 +62,40 @@
 							array('Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About'),
 							array('Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe')
 							),
+						'width'       => "550px", //Setting a custom width
+						'height'      => '500px', //Setting a custom height
+
+					),
+
+					//Replacing styles from the "Styles tool"
+					'styles'  => array(
+
+						//Creating a new style named "style 1"
+						'style 1' => array(
+							'name'         => 'Blue Title',
+							'element'      => 'h2',
+							'styles'       => array(
+								'color'               => 'Blue',
+								'font-weight'         => 'bold'
+							)
+						)
+					)
+				);
+
+				$data['ckeditor2'] = array(
+
+					//ID of the textarea that will be replaced
+					'id'      => 'locationeditor',
+					'path'    => 'assets/js/ckeditor',
+
+					//Optionnal values
+					'config'  => array(
+						// 'toolbar'     => "Basic", //Using the Full toolbar
+						'toolbar'		=> array(
+							array('Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates'),
+							array('Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About'),
+							array('Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe')
+						),
 						'width'       => "550px", //Setting a custom width
 						'height'      => '500px', //Setting a custom height
 
@@ -156,9 +191,8 @@
 			$question = (string)$this->input->post('question', TRUE);
 			$answer   = (string)$this->input->post('answer', TRUE);
 			$uid      = $this->user_id;
-			$redirect = "/client/index";
 
-			$this->Faq_model->updateFAQ($faq_id, $question, $answer, $uid, $redirect);
+			$this->Faq_model->updateFAQ($faq_id, $question, $answer, $uid);
 		}
 
 		// Updates Gallery Table
@@ -214,10 +248,36 @@
 			$this->Faq_model->getAjaxFAQList($this->user_id);
 		}
 
+		function getLocationList()
+		{
+			$this->Location_model->getAjaxLocationList();
+		}
+
 		function getPageDetails()
 		{
 			$page_id = $this->input->get_post('pageid', TRUE);
 			$this->Pages_model->getAjaxPagedata($this->user_id, $page_id);
+		}
+
+		function locationUpdate()
+		{
+			$this->load->helper('htmlpurifier');
+			$strlen = strlen((string)$this->input->post('idlocation'));
+
+			if ($strlen == 0) {
+				$idlocation = '';
+			} else {
+				$idlocation = (string)$this->input->post('idlocation');
+			}
+			$locationname = (string)$this->input->post('location_name', TRUE);
+			$locationstreet = (string)$this->input->post('location_street', TRUE);
+			$locationcity = (string)$this->input->post('location_city', TRUE);
+			$locationstate = (string)$this->input->post('location_state', TRUE);
+			$locationzip = (string)$this->input->post('location_zip', TRUE);
+			$locationdescription = html_purify($this->input->post('location_description', FALSE));
+			$uid = $this->user_id;
+
+			$this->Location_model->updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $uid);
 		}
 
 		function pageDelete()

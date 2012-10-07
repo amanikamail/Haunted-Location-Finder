@@ -137,26 +137,6 @@ h1, h2, h3, h4, p {
     margin-top: .55rem;
 }
 
-#tabs-4.pageeditor ul.pagelist {
-    background-color: #6495ed;
-}
-
-#tabs-4.pageeditor ul.pagelist li {
-    float: left;
-    margin: 1px;
-    padding: 2px 5px;
-    background-color: #6495ed;
-    border: 1px #00008b dashed;
-}
-
-#tabs-4.pageeditor ul.pagelist li:hover {
-    float: left;
-    margin: 1px;
-    padding: 2px 5px;
-    background-color: #008b8b;
-    border: 1px #00008b dashed;
-}
-
 /* -----------------------------------------
    Featured Content
 ----------------------------------------- */
@@ -207,7 +187,7 @@ h1, h2, h3, h4, p {
     float: left;
     padding: 1px 2px 0 0;
     position: relative;
-    height: 30px;
+
 }
 #topmenu ul li ul li {
     background: #003B54;
@@ -215,14 +195,14 @@ h1, h2, h3, h4, p {
 #topmenu li.last {
     background: none repeat scroll 0 0 transparent;
 }
-#topmenu li a, #topmenu li a:link, #topmenu li a:visited {
+#topmenu li a, #topmenu li a:link,
+#topmenu li a:visited {
     color: #FFFFFF;
-    display: inline;
+    display: block;
     float: left;
     font-size: 1em;
     font-weight: bold;
-    height: 20px;
-    padding: 8px 20px 0;
+    padding: 8px 20px;
     text-transform: uppercase;
 }
 #topmenu li a:hover, #placemainmenu #topmenu li:hover a, #placemainmenu #topmenu li:hover a:link, #placemainmenu #topmenu li:hover a:visited, #topmenu li.active a, #topmenu li.active a:link, #topmenu li.active a:visited {

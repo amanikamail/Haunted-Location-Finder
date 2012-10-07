@@ -15,6 +15,7 @@
 			$this->load->model('Pages_model');
 			$this->siteid = $this->domain_model->getUID();
 			$siteid = $this->domain_model->getUID();
+
 			if (!$this->ion_auth->logged_in()) {
 				$this->login     = 'false';
 				$this->user_id   = '';
@@ -29,6 +30,20 @@
 
 		public function index($sectionid = 1, $pageid = 1)
 		{
+
+			$filename = strtolower($this->Pages_model->getPageName($pageid));
+			$data['filename'] = $filename;
+			if (@file_exists(APPPATH."views/pages/{$filename}.php"))
+			{
+				if ($filename == 'locations') {
+
+				}
+
+				$data['page']          = 'pages/' . $filename;
+			} else {
+				$data['page']          = 'pages/home';
+			}
+
 			$data['login']         = $this->login;
 			$data['user_id']       = $this->user_id;
 			$data['username']      = $this->user_name;
@@ -39,7 +54,7 @@
 			$data['page_keywords'] = $this->domain_model->getPageMetaKeywords($this->siteid);
 			$data['page_content']  = $this->Pages_model->getPageContent($this->siteid, $sectionid, $pageid);
 			$data['sidebar']       = 'sidebars/home-sidebar';
-			$data['page']          = 'pages/home';
+
 			$this->load->view('container', $data);
 		}
 
