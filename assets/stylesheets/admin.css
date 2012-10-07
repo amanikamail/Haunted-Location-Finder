@@ -1,0 +1,413 @@
+/* Artfully masterminded by ZURB  */
+
+/* --------------------------------------------------
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Main Navigation
+:: Control Panel
+:: Gallery Page
+:: Home Page
+:: Project Page
+:: Projects Page
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+html { font-size: 62.5%; }
+body { font-size: 14px; font-size: 1.4rem; } /* =14px */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url("../images/site-images/back_top.jpg") no-repeat scroll 50% 0 #45BCE8;
+}
+
+#wrapper {
+
+}
+
+h1, h2, h3, h4, p {
+    color: black;
+
+}
+
+#header {
+    height: 87px;
+    background: #ffffff;
+}
+
+#header .logo {
+    margin-left: 10px;
+}
+
+.headline, .quote {
+    background: url('') 0 0 repeat-x;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+.clientlogin a {
+    background: transparent url(../images/icons/Briefcase-icon-32.png) no-repeat scroll left center;
+    line-height:43px;
+    padding: 1rem 0 1rem 4rem;
+
+}
+
+.pdf a {
+    background: transparent url(../images/icons/pdf_file.png) no-repeat scroll left center;
+    line-height:43px;
+    padding: 1rem 0 1rem 4rem;
+
+}
+
+.login a{
+    background: transparent url(../images/icons/key.png) no-repeat scroll left center;
+    padding: 1rem 0 1rem 4rem;
+
+}
+
+.userlink a{
+    background: transparent url(../images/icons/Profile-icon-32.png) no-repeat scroll left center;
+    padding: 1rem 0 1rem 4rem;
+
+}
+
+.caccount a{
+    background: transparent url(../images/icons/book.png) no-repeat scroll left center;
+    padding: 1rem 0 1rem 4rem;
+
+}
+
+.headline h2, .quote h2 {
+    margin-left: 1rem;
+    -webkit-background-clip: text;
+    text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px;
+}
+
+.quote h2 {
+    font-size: 20px;
+    font-size: 2rem;
+    font-style: italic;
+}
+
+#header h1 {
+    color: white;
+    font-size: 20px;
+    font-size: 1.75rem;
+}
+
+#logo {
+    margin-left: 5px;
+}
+
+#logo, #slogan {
+    margin-top: 5px;
+}
+
+#footer {
+    overflow: hidden;;
+    padding-bottom: 34px;
+    background-color: white;
+    color: #333333;
+}
+
+#bodycontent, #content {
+    background-color: white;
+    min-height: 400px;
+}
+
+#copyright {
+    background-color: white;
+    border-top: thin solid #333333;
+    border-bottom: thin solid #333333;
+    height: 30px;
+    color: #333333;
+}
+
+#copyright p {
+    font-size: 12px;
+    font-size: 1.15rem;
+    margin-top: 5px;
+    margin-top: .55rem;
+}
+
+#tabs-4.pageeditor ul.pagelist {
+    background-color: #6495ed;
+}
+
+#tabs-4.pageeditor ul.pagelist li {
+    float: left;
+    margin: 1px;
+    padding: 2px 5px;
+    background-color: #6495ed;
+    border: 1px #00008b dashed;
+}
+
+#tabs-4.pageeditor ul.pagelist li:hover {
+    float: left;
+    margin: 1px;
+    padding: 2px 5px;
+    background-color: #008b8b;
+    border: 1px #00008b dashed;
+}
+
+/* -----------------------------------------
+   Featured Content
+----------------------------------------- */
+
+#featured {
+    height: 190px;
+    background: #ffffff;
+}
+
+#featured #s1 {
+
+}
+
+#featured #s1 img {
+    width: 980px;
+}
+
+/* -----------------------------------------
+   Main Navigation
+----------------------------------------- */
+
+#topmenu {
+    background: url("../images/site-images/back_menu.png") repeat-x scroll 0 0 transparent;
+    height: 30px;
+    z-index: 9999;
+    position: relative;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 0;
+}
+
+#topmenu ul.sf-menu {
+    padding-bottom: 0;
+    height: 30px;
+}
+
+#topmenu ul.sf-menu li.sfHover ul, #topmenu ul.sf-menu li:hover ul {
+    left: 0;
+    top: 2.1em;
+    z-index: 99;
+}
+
+#topmenu li {
+    background: url("../images/site-images/sep1.png") no-repeat scroll 100% 6px transparent;
+    display: block;
+    float: left;
+    padding: 1px 2px 0 0;
+    position: relative;
+    height: 30px;
+}
+#topmenu ul li ul li {
+    background: #003B54;
+}
+#topmenu li.last {
+    background: none repeat scroll 0 0 transparent;
+}
+#topmenu li a, #topmenu li a:link, #topmenu li a:visited {
+    color: #FFFFFF;
+    display: inline;
+    float: left;
+    font-size: 1em;
+    font-weight: bold;
+    height: 20px;
+    padding: 8px 20px 0;
+    text-transform: uppercase;
+}
+#topmenu li a:hover, #placemainmenu #topmenu li:hover a, #placemainmenu #topmenu li:hover a:link, #placemainmenu #topmenu li:hover a:visited, #topmenu li.active a, #topmenu li.active a:link, #topmenu li.active a:visited {
+    background: none repeat scroll 0 0 #004863;
+    text-decoration: none;
+}
+#placemainmenu #topmenu ul a {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    text-align: left;
+}
+#placemainmenu ul ul {
+    background: url("../images/site-images/back_popup.png") repeat-x scroll 0 0 #003B54;
+    display: none;
+    left: 0;
+    margin: 31px 0 0;
+    padding: 10px 0;
+    position: absolute;
+    width: 167px;
+    z-index: 500;
+}
+#placemainmenu ul li ul li {
+    background: url("../images/site-images/borderpopup.png") no-repeat scroll 50% 100% #003B54;
+    display: block;
+    float: none;
+    height: 24px;
+    padding: 2px 0 0;
+}
+#placemainmenu ul li ul li.last {
+    background: none repeat scroll 0 0 transparent;
+}
+#placemainmenu #topmenu li:hover ul li a, #placemainmenu #topmenu li:hover ul li a:link, #placemainmenu #topmenu li:hover ul li a:visited {
+    background: none repeat scroll 0 0 transparent;
+    color: #ADADAD;
+    display: block;
+    font-size: 1.1em;
+    height: 14px;
+    padding: 2px 20px 0;
+    text-transform: none;
+}
+#placemainmenu #topmenu li:hover ul li a:hover, #placemainmenu #topmenu li ul li a:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+div#placemainmenu li:hover ul ul, div#placemainmenu li li:hover ul ul {
+    display: none;
+}
+div#placemainmenu li:hover ul, div#placemainmenu li li:hover ul {
+    display: block;
+}
+
+
+/* -----------------------------------------
+   Gallery
+----------------------------------------- */
+
+#gallery {
+    margin-left:10px;
+    margin-top:10px;
+}
+
+#gallery, #upload {
+    border: 1px solid #ccc; width: 570px; padding: 10px;
+}
+#blank_gallery {
+    font-family: Arial; font-size: 18px; font-weight: bold;
+    text-align: center;
+}
+.adminthumb {
+    float: left;  padding: 10px; margin: 10px; background-color: #ddd;
+}
+.thumb {
+    float: left; width: 150px; height: 100px; padding: 10px; margin: 10px; background-color: #ddd;
+}
+.thumb:hover {
+    outline: 1px solid #999;
+}
+.deleteimage {
+    float:right;
+}
+img {
+    border: 0;
+}
+#gallery:after {
+    content: "."; visibility: hidden; display: block; clear: both; height: 0; font-size: 0;
+}
+
+
+
+/* -----------------------------------------
+   Home Page
+----------------------------------------- */
+
+/* -----------------------------------------
+   Project Page
+----------------------------------------- */
+
+#project h3 {
+    font-size: 1.6rem;
+}
+
+#project h4 {
+    font-size: 1.2rem;
+}
+
+#commitment {
+    border: #514030 solid thin;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #c9b6a5;
+}
+
+#commitment h3 {
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+#commitment h4 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#RewardBox {
+    background-color: #e9e1da;
+    border: #ad9076 solid thin;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#commitment .pledge {
+    background-color: #e9e1da;
+    border: #ad9076 solid thin;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    height: 17px;
+    text-align: center;
+}
+
+#commitment .reward {
+    background-color: #e9e1da;
+    border: #ad9076 solid thin;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#commitment .reward p {
+    margin-left: 5px;
+}
+
+/* -----------------------------------------
+   Projects Page
+----------------------------------------- */
+
+.projectGalleryItem {
+    border: #596c55 thin solid;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.projectGalleryItem img {
+    margin: 3px 3px 3px 3px;
+}
+
+.projectGalleryItem h3 {
+    font-size: 1.5rem;
+}
+
+.projectGalleryItem  h4 {
+    font-size: 1.25rem;
+}
+
+.projectGalleryItem p {
+    font-size: 1rem;
+}
+
