@@ -1,37 +1,31 @@
 
 <div id="content" class="row">
 
-	<div class="twelve columns">
-
-		<script type="text/javascript">
-
-			$(document).ready(function() {
-
-				$('#map_canvas').gmap({'callback': function() {
-					var self = this;
-					self.getCurrentPosition(function(position, status) {
-						if ( status === 'OK' ) {
-							var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-							console.log('clientpostion' + clientPosition);
-
-							self.addMarker({'position': clientPosition, 'bounds': true});
-							self.addShape('Circle', {
-								'strokeWeight': 0,
-								'fillColor': "#008595",
-								'fillOpacity': 0.25,
-								'center': clientPosition,
-								'radius': 15,
-								'clickable': false
-							});
-						}
-					});
-				}});
-			});
-
-		</script>
+	<div class="eight columns">
 
 		<div id="map_canvas" style="width:500px;height:250px"></div>
 
 	</div>
 
+	<div class="four columns">
+
+		<form id="update" class="nice" action="/client/getLocation">
+			<fieldset><label>Pick A Location</label>
+				<select id="address" name="address">
+					<option value="">None</option>
+				</select>
+				<button id="submit" value="submit">Button</button>
+			</fieldset>
+		</form>
+
+	</div>
+
 </div>
+
+	<div id="locationinfo" class="row">
+		<div class="twelve columns">
+			<h1></h1>
+			<h3></h3>
+			<p></p>
+		</div>
+	</div>

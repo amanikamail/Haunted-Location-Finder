@@ -22,6 +22,27 @@ class Location_model extends CI_Model {
 
 	}
 
+	function getAjaxLocation($idlocation)
+	{
+		$this->db->select( '*' )
+			->from( 'locations' )
+			->where( 'idlocation', $idlocation);
+
+		$query = $this->db->get();
+
+		$row = $query->row_array();
+		$num = $query->num_rows();
+
+		if ( $num < 1 ) {
+			return NULL;
+		}
+		else {
+			echo json_encode( $query->result_array() );
+
+		}
+
+	}
+
 	function updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $uid)
 	{
 		if ($idlocation  == '') {

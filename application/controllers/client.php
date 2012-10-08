@@ -248,6 +248,12 @@
 			$this->Faq_model->getAjaxFAQList($this->user_id);
 		}
 
+		function getLocation()
+		{
+			$idlocation = (string)$this->input->post('address');
+			$this->Location_model->getAjaxLocation($idlocation);
+		}
+
 		function getLocationList()
 		{
 			$this->Location_model->getAjaxLocationList();
