@@ -3,7 +3,7 @@
 
 	<div class="eight columns">
 
-		<div id="map_canvas" style="width:500px;height:250px"></div>
+		<div id="map_canvas" style="height: 250px; width: 100%"></div>
 
 	</div>
 
