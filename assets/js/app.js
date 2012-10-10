@@ -24,6 +24,7 @@ jQuery(document).ready(function ($) {
 	var geocoder;
 	var map;
 	var address;
+	var origin;
 
 	function getLocationDetails() {
 		$.ajax({
@@ -87,6 +88,46 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
+	function getDistance(origin, address) {
+
+		$('#map-canvas').gmap3({
+			action:'geoLatLng', callback: function (latLng) {
+				$(this).data('origin', latLng);
+			},
+			action:'getDistance',
+			options:{
+				origins: [origin],
+				destinations:[address],
+				travelMode: google.maps.TravelMode.DRIVING
+			},
+			callback: function(results){
+				var html = '';
+				if (results){
+					for (var i = 0; i < results.rows.length; i++){
+						var elements = results.rows[i].elements;
+						for(var j=0; j<elements.length; j++){
+							switch(elements[j].status){
+								case google.maps.DistanceMatrixStatus.OK:
+									console.log('distance: ' + elements[j].distance.text + ' duration: ' + elements[j].duration.text);
+									html += elements[j].distance.text + ' (' + elements[j].duration.text + ')<br />';
+									break;
+								case google.maps.DistanceMatrixStatus.NOT_FOUND:
+									html += 'The origin and/or destination of this pairing could not be geocoded<br />';
+									break;
+								case google.maps.DistanceMatrixStatus.ZERO_RESULTS:
+									html += 'No route could be found between the origin and destination.<br />';
+									break;
+							}
+						}
+					}
+				} else {
+					html = 'error';
+				}
+				$('#results').html( html );
+			}
+		});
+	}
+
 	function updateLocation(feedback) {
 
 		$('#locationinfo h1').empty();
@@ -113,7 +154,7 @@ jQuery(document).ready(function ($) {
 						map:{
 							center: true,
 							zoom: 10
-						}});
+						}}, origin = latLng);
 				} else {
 					alert('not localised !');
 				}
@@ -139,9 +180,10 @@ jQuery(document).ready(function ($) {
 					$.each(data, function () {
 						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
 					});
-					console.log(address);
 
 					updateMap(address);
+
+					getDistance(origin, address)
 				},
 				failure: function (data) {
 					console.log(data);
