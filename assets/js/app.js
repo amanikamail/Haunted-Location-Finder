@@ -51,60 +51,40 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
-	function initialize() {
-		geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng(-34.397, 150.644);
-		var mapOptions = {
-			zoom: 8,
-			center: latlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-	}
-
-	function codeAddress(address) {
-
-		geocoder = new google.maps.Geocoder();
-
-		geocoder.geocode( { 'address': address}, function(results, status) {
-
-			if (status == google.maps.GeocoderStatus.OK) {
-				map.setCenter(results[0].geometry.location);
-				var marker = new google.maps.Marker({
-					map: map,
-					position: results[0].geometry.location
-				});
-			} else {
-				console.log("Geocode was not successful for the following reason: " + status);
-			}
-		});
-	}
-
-	function codeLatLng() {
-		var input = document.getElementById("latlng").value;
-		var latlngStr = input.split(",",2);
-		var lat = parseFloat(latlngStr[0]);
-		var lng = parseFloat(latlngStr[1]);
-		var latlng = new google.maps.LatLng(lat, lng);
-		geocoder.geocode({'latLng': latlng}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-					map.setZoom(11);
-					marker = new google.maps.Marker({
-						position: latlng,
-						map: map
-					});
-					infowindow.setContent(results[1].formatted_address);
-					infowindow.open(map, marker);
+	function updateMap(address) {
+		$('#map-canvas').gmap3({ action:'geoLatLng',
+			callback:function (latLng) {
+				if (latLng) {
+					$(this).gmap3(
+						{
+							action:'clear'
+						},
+						{
+							action:'setCenter',
+							args:[ latLng ]
+						},
+						{
+							action: 'addMarker',
+							latLng: latLng,
+							map:{
+								center: true,
+								zoom: 10
+							}
+						},
+						{
+							action: 'addMarker',
+							address: address,
+							map:{
+								center: true,
+								zoom: 10
+							}
+						}
+					);
+				} else {
+					alert('not localised !');
 				}
-			} else {
-				alert("Geocoder failed due to: " + status);
 			}
 		});
-	}
-
-	function getAddress() {
-
 	}
 
 	function updateLocation(feedback) {
@@ -122,30 +102,24 @@ jQuery(document).ready(function ($) {
 	}
 
 	if ($('body').hasClass('locations')) {
-
-		map = new google.maps.Map(document.getElementById("map_canvas"));
-
 		getLocationDetails();
 
-		$('#map_canvas').gmap({'callback': function() {
-			var self = this;
-			self.getCurrentPosition(function(position, status) {
-				if ( status === 'OK' ) {
-					var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-					console.log('clientpostion' + clientPosition);
-
-					self.addMarker({'position': clientPosition, 'bounds': true});
-					self.addShape('Circle', {
-						'strokeWeight': 0,
-						'fillColor': "#008595",
-						'fillOpacity': 0.25,
-						'center': clientPosition,
-						'radius': 15,
-						'clickable': false
-					});
+		$('#map-canvas').gmap3({ action:'geoLatLng',
+			callback:function (latLng) {
+				if (latLng) {
+					$(this).gmap3({action:'setCenter', args:[ latLng ]},
+						{ action: 'addMarker',
+						latLng: latLng,
+						map:{
+							center: true,
+							zoom: 10
+						}});
+				} else {
+					alert('not localised !');
 				}
-			});
-		}});
+			}
+		});
+
 
 		$('form#update').submit( function(e){
 			e.preventDefault();
@@ -166,8 +140,8 @@ jQuery(document).ready(function ($) {
 						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
 					});
 					console.log(address);
-					initialize();
-					codeAddress(address);
+
+					updateMap(address);
 				},
 				failure: function (data) {
 					console.log(data);

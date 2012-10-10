@@ -17,9 +17,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/superfish-min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
 
-<?php if (isset($map)) {
-	echo $map['js'];
-} ?>
+
 
 <!--[if lt IE 9]>
 <link rel="stylesheet" href="<?php echo base_url();?>/assets/stylesheets/ie.css">

@@ -31,12 +31,12 @@ $this->load->view('footer');
 <script src="<?php echo base_url();?>assets/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/assets/js/superfish-min.js"></script>
 
+
 <?php if ((isset($filename) && ($filename == 'locations'))) {
 	?>
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-maps/jquery.ui.map.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-maps/jquery.ui.map.extensions.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery-maps/jquery.ui.map.services.min.js"></script>
+<script src="/assets/js/gmap3.js"></script>
+
 	<?
 }
 ?>
