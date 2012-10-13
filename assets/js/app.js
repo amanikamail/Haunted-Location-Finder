@@ -88,6 +88,40 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
+	function getDirections(origin, address) {
+		$('#map-canvas').gmap3(
+			{ action:'getRoute',
+				options:{
+					origin:origin,
+					destination:address,
+					travelMode: google.maps.DirectionsTravelMode.DRIVING
+				},
+				callback: function(results){
+					if (!results) return;
+					$(this).gmap3(
+						{ action:'init',
+							zoom: 13,
+							mapTypeId: google.maps.MapTypeId.ROADMAP,
+							streetViewControl: true,
+							center: origin
+						},
+						{ action:'addDirectionsRenderer',
+							options:{
+								preserveViewport: true,
+								draggable: false,
+								directions:results
+							}
+						},
+						{
+							action: 'setDirectionsPanel',
+							id: 'map-directions'
+						}
+					);
+				}
+			}
+		);
+	}
+
 	function getDistance(origin, address) {
 
 		$('#map-canvas').gmap3({
@@ -142,6 +176,86 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
+	function geoCode(location) {
+		$('#map-canvas').gmap3(
+			{ action: 'getLatLng',
+				address: location,
+				callback: function(result){
+					if (result){
+						ParseLocation(result[0].geometry.location);
+
+//						$(this).gmap3({action: 'setCenter', args:[ result[0].geometry.location ]});
+					} else {
+						alert('Bad address!');
+					}
+				}
+			}
+		);
+	}
+
+	function ParseLocation(location, lat, lng) {
+		var lat = location.lat().toString().substr(0, 12);
+		var lng = location.lng().toString().substr(0, 12);
+
+		$('#tbxlat').val(lat);
+		$('#tbxlng').val(lng);
+
+	}
+
+	if ($('body').hasClass('addlocation')) {
+		/* Create a New Location or update an existing one */
+		$('form#locationForm').submit(function (e) {
+
+			e.preventDefault();
+
+			var location ='';
+
+			var location = $('input[name="location_street"]').val() + ', '
+				+ $('input[name="location_city"]').val()  + ', '
+				+ $('input[name="location_state"]').val() + ', '
+				+ $('input[name="location_zip"]').val();
+
+			geoCode(location);
+
+			var idlocation = $('input[name="idlocation"]').val();
+			for (instance in CKEDITOR.instances)
+				CKEDITOR.instances[instance].updateElement();
+
+			$.ajax({
+				beforeSend: geoCode(location),
+				success: function() {
+					$.ajax({
+						url:"/client/locationUpdate",
+						type:"POST",
+						dataType:'json',
+						data:$('form#locationForm').serialize(),
+						success:function (feedback) {
+							console.log('Location Updated');
+							getLocationDetails();
+							var pathname = window.location.pathname.split("/");
+							var data = {};
+							data.idlocation = 0;
+							data.userid = pathname[pathname.length - 2];
+							data.location_name = 'Add A Location Name';
+							data.location_street = "Street Address Goes Here";
+							data.location_city = "City Goes Here";
+							data.location_state = "State Goes Here";
+							data.location_zip = "Zip Goes Here";
+							data.location_description = "Insert Location Description Here";
+
+							resetLocationForm(data);
+						}
+					});
+				}
+			})
+
+
+
+
+			return false;
+		});
+	}
+
 	if ($('body').hasClass('locations')) {
 		getLocationDetails();
 
@@ -181,9 +295,11 @@ jQuery(document).ready(function ($) {
 						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
 					});
 
-					updateMap(address);
 
-					getDistance(origin, address)
+
+
+
+					getDirections(origin, address);
 				},
 				failure: function (data) {
 					console.log(data);
@@ -192,8 +308,6 @@ jQuery(document).ready(function ($) {
 
 		});
 
-	} else {
-		console.log('failure');
 	}
 
 });

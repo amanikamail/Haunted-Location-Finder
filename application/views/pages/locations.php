@@ -4,6 +4,7 @@
 	<div class="eight columns">
 
 		<div id="map-canvas" style="height: 250px; width: 100%"></div>
+		<div id="map-directions"></div>
 
 	</div>
 

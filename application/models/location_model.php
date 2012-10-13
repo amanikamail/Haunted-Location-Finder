@@ -43,7 +43,7 @@ class Location_model extends CI_Model {
 
 	}
 
-	function updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $uid)
+	function updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $uid)
 	{
 		if ($idlocation  == '') {
 			$data = array(
@@ -53,6 +53,8 @@ class Location_model extends CI_Model {
 				'location_city'     => $locationcity,
 				'location_state'    => $locationstate,
 				'location_zip'      => $locationzip,
+				'lat'               => $lat,
+				'lng'               => $lng,
 				'description'       => $locationdescription,
 				'userid'			=> $uid
 			);
@@ -64,6 +66,8 @@ class Location_model extends CI_Model {
 				'location_city'     => $locationcity,
 				'location_state'    => $locationstate,
 				'location_zip'      => $locationzip,
+				'lat'               => $lat,
+				'lng'               => $lng,
 				'description'       => $locationdescription,
 				'userid'			=> $uid
 			);
@@ -92,7 +96,7 @@ class Location_model extends CI_Model {
 	function deleteLocation($id)
 	{
 		$this->db->where( 'idlocation', $id );
-		$this->db->delete( 'location' );
+		$this->db->delete( 'locations' );
 	}
 
 

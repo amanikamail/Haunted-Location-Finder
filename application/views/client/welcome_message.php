@@ -423,14 +423,18 @@
 				</tbody>
 			</table>
 		</div>
+		<div id="map-canvas"></div>
 	</div>
 
     <?php $attributes = array('class' => 'nice', 'id' => 'locationForm');
-    echo form_open('/client/locationUpdate', $attributes);
+    echo form_open('', $attributes);
     ?>
 
 	<input type="hidden" name="locationid" value=""/>
 	<input type="hidden" name="userid" value="<?= $user_id;?>"/>
+	<input type="hidden" name="tbxlat" id="tbxlat" >
+	<input type="hidden" name="tbxlng" id="tbxlng">
+
 
     <?=form_fieldset('');?>
     <div class="row">

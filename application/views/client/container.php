@@ -34,7 +34,8 @@
 <script src="<?php echo base_url();?>assets/js/jquery.tablesorter.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.tablesorter.pager.js"></script>
 <script src="<?php echo base_url();?>assets/js/admin.js"></script>
-
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script src="/assets/js/gmap3.js"></script>
 
 
 

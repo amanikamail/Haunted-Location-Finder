@@ -9,6 +9,7 @@
 jQuery(document).ready(function ($) {
 
 
+
 	$(function () {
 		$.ajaxSetup({
 			error:function (jqXHR, exception) {
@@ -446,6 +447,38 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
+	/* Geocode an address before it get's submitted to db */
+	var location;
+	var geocode_address;
+	var lat;
+	var lng;
+
+	function geoCode(location) {
+		$('#map-canvas').gmap3(
+			{ action: 'getLatLng',
+				address: location,
+				callback: function(result){
+					if (result){
+						ParseLocation(result[0].geometry.location);
+
+//						$(this).gmap3({action: 'setCenter', args:[ result[0].geometry.location ]});
+					} else {
+						alert('Bad address!');
+					}
+				}
+			}
+		);
+	}
+
+	function ParseLocation(location, lat, lng) {
+		 var lat = location.lat().toString().substr(0, 12);
+		 var lng = location.lng().toString().substr(0, 12);
+
+		$('#tbxlat').val(lat);
+		$('#tbxlng').val(lng);
+
+	}
+
 	/* Get the Haunted Locations for Control Panel */
 
 	function getLocationDetails() {
@@ -459,9 +492,9 @@ jQuery(document).ready(function ($) {
 				var items = [];
 				if (feedback.length > 0 ) {
 					$('table#locations').empty();
-					$('table#locations').append('<thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Update</th><th>Delete</th></tr></thead>');
+					$('table#locations').append('<thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Delete</th></tr></thead>');
 					$.each(data, function () {
-						var newRow = $('<tr><td>' + this.location_name + '</td><td>' + this.location_city + '</td><td>' + this.location_state + '</td><td>' + this.location_zip + '</td><td></td><td></td></tr>');
+						var newRow = $('<tr><td>' + this.location_name + '</td><td>' + this.location_city + '</td><td>' + this.location_state + '</td><td>' + this.location_zip + '</td><td><a href="/client/deletelocation/'+ this.idlocation + '" class="locdelete"><img SRC="/assets/images/icons/delete-icon-32.png" ALT="Delete button"></a></td></tr>');
 						$('table#locations').append(newRow);
 
 					});
@@ -478,51 +511,97 @@ jQuery(document).ready(function ($) {
 		});
 	}
 
-	/* Create a New Page or update an existing one */
+	/* Create a New Location or update an existing one */
 	$('form#locationForm').submit(function (e) {
+
 		e.preventDefault();
+
+		var location ='';
+
+		var location = $('input[name="location_street"]').val() + ', '
+					+ $('input[name="location_city"]').val()  + ', '
+					+ $('input[name="location_state"]').val() + ', '
+					+ $('input[name="location_zip"]').val();
+
+		geoCode(location);
 
 		var idlocation = $('input[name="idlocation"]').val();
 		for (instance in CKEDITOR.instances)
 			CKEDITOR.instances[instance].updateElement();
+
 		$.ajax({
-			url:"/client/locationUpdate",
-			type:"POST",
-			dataType:'json',
-			data:$('form#locationForm').serialize(),
-			success:function (feedback) {
-				console.log('Location Updated');
+			beforeSend: geoCode(location),
+			success: function() {
+				$.ajax({
+					url:"/client/locationUpdate",
+					type:"POST",
+					dataType:'json',
+					data:$('form#locationForm').serialize(),
+					success:function (feedback) {
+						console.log('Location Updated');
+						getLocationDetails();
+						var pathname = window.location.pathname.split("/");
+						var data = {};
+						data.idlocation = 0;
+						data.userid = pathname[pathname.length - 2];
+						data.location_name = 'Add A Location Name';
+						data.location_street = "Street Address Goes Here";
+						data.location_city = "City Goes Here";
+						data.location_state = "State Goes Here";
+						data.location_zip = "Zip Goes Here";
+						data.location_description = "Insert Location Description Here";
 
-				getLocationDetails();
-
-				var pathname = window.location.pathname.split("/");
-				var data = {};
-				data.idlocation = 0;
-				data.userid = pathname[pathname.length - 2];
-				data.location_name = 'Add A Location Name';
-				data.location_street = "Street Address Goes Here";
-				data.location_city = "City Goes Here";
-				data.location_state = "State Goes Here";
-				data.location_zip = "Zip Goes Here";
-				data.location_description = "Insert Location Description Here";
-
-				resetLocationForm(data);
+						resetLocationForm(data);
+					}
+				});
 			}
-		});
+		})
+
+
+
 
 		return false;
 	});
 
+	/* Category Delete Function */
+	$('#locations').on('click', 'a.locdelete', function (e) {
+		e.preventDefault();
+
+		var pathname = $(this).attr("href").split("/");
+		var locationid = pathname[pathname.length - 1];
+
+		data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
+		data += 'locationid=' + locationid;
+
+		console.log(data);
+		$.ajax({
+			url:"/client/deleteLocation",
+			type:"POST",
+			dataType: 'html',
+			data: data,
+			success:function (feedback) {
+				console.log('location deleted');
+				getLocationDetails();
+			},
+			failure:function (feedback) {
+				console.log('location not deleted: ' + feedback);
+			}
+		})
+
+		return false;
+
+	});
+
 	function resetLocationForm(data) {
 		$('input[name="userid"]').val(data.userid);
-		$('input[name="location_name"]').val(data.location_name);
-		$('input[name="location_street"]').val(data.location_street);
-		$('input[name="location_city"]').val(data.location_city);
-		$('input[name="location_state"]').val(data.location_state);
-		$('input[name="location_zip"]').val(data.location_zip);
+		$('input[name="location_name"]').val('');
+		$('input[name="location_street"]').val('');
+		$('input[name="location_city"]').val('');
+		$('input[name="location_state"]').val('');
+		$('input[name="location_zip"]').val('');
 
-		$('textarea[name="location_description"]').val(data.location_description);
-		CKEDITOR.instances['locationeditor'].setData(data.location_description);
+		$('textarea[name="location_description"]').val('');
+		CKEDITOR.instances['locationeditor'].setData('');
 
 	}
 

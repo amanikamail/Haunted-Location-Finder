@@ -265,6 +265,12 @@
 			$this->Pages_model->getAjaxPagedata($this->user_id, $page_id);
 		}
 
+		function deleteLocation()
+		{
+			$locationid = (string)$this->input->post('locationid');
+			$this->Location_model->deleteLocation($locationid);
+		}
+
 		function locationUpdate()
 		{
 			$this->load->helper('htmlpurifier');
@@ -281,9 +287,10 @@
 			$locationstate = (string)$this->input->post('location_state', TRUE);
 			$locationzip = (string)$this->input->post('location_zip', TRUE);
 			$locationdescription = html_purify($this->input->post('location_description', FALSE));
+			$lat = (string)$this->input->post('tbxlat', TRUE);
+			$lng = (string)$this->input->post('tbxlng', TRUE);
 			$uid = $this->user_id;
-
-			$this->Location_model->updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $uid);
+			$this->Location_model->updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $uid);
 		}
 
 		function pageDelete()
