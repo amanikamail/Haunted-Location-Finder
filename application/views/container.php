@@ -32,7 +32,7 @@ $this->load->view('footer');
 <script type="text/javascript" src="/assets/js/superfish-min.js"></script>
 
 
-<?php if ((isset($filename) && ($filename == 'locations'))) {
+<?php if ((isset($filename) && ($filename == 'locations' || $filename == 'addlocation'))) {
 	?>
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="/assets/js/gmap3.js"></script>

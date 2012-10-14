@@ -10,6 +10,7 @@
 		public function __construct()
 		{
 			parent::__construct();
+			$this->load->helper('ckeditor');
 			$this->load->library('ion_auth');
 			$this->load->library('Treeview');
 			$this->load->model('Pages_model');
@@ -35,8 +36,40 @@
 			$data['filename'] = $filename;
 			if (@file_exists(APPPATH."views/pages/{$filename}.php"))
 			{
-				if ($filename == 'locations') {
+				if ($filename == 'addlocation') {
+					$data['ckeditor2'] = array(
 
+						//ID of the textarea that will be replaced
+						'id'      => 'locationeditor',
+						'path'    => 'assets/js/ckeditor',
+
+						//Optionnal values
+						'config'  => array(
+							// 'toolbar'     => "Basic", //Using the Full toolbar
+							'toolbar'		=> array(
+								array('Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates'),
+								array('Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About'),
+								array('Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe')
+							),
+							'width'       => "550px", //Setting a custom width
+							'height'      => '500px', //Setting a custom height
+
+						),
+
+						//Replacing styles from the "Styles tool"
+						'styles'  => array(
+
+							//Creating a new style named "style 1"
+							'style 1' => array(
+								'name'         => 'Blue Title',
+								'element'      => 'h2',
+								'styles'       => array(
+									'color'               => 'Blue',
+									'font-weight'         => 'bold'
+								)
+							)
+						)
+					);
 				}
 
 				$data['page']          = 'pages/' . $filename;

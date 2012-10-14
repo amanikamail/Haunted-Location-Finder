@@ -90,6 +90,7 @@ jQuery(document).ready(function ($) {
 
 	function getDirections(origin, address) {
 		$('#map-canvas').gmap3(
+			{action: 'clear'},
 			{ action:'getRoute',
 				options:{
 					origin:origin,
@@ -231,7 +232,6 @@ jQuery(document).ready(function ($) {
 						data:$('form#locationForm').serialize(),
 						success:function (feedback) {
 							console.log('Location Updated');
-							getLocationDetails();
 							var pathname = window.location.pathname.split("/");
 							var data = {};
 							data.idlocation = 0;
@@ -242,8 +242,6 @@ jQuery(document).ready(function ($) {
 							data.location_state = "State Goes Here";
 							data.location_zip = "Zip Goes Here";
 							data.location_description = "Insert Location Description Here";
-
-							resetLocationForm(data);
 						}
 					});
 				}
@@ -263,6 +261,7 @@ jQuery(document).ready(function ($) {
 			callback:function (latLng) {
 				if (latLng) {
 					$(this).gmap3({action:'setCenter', args:[ latLng ]},
+						{action: 'clear'},
 						{ action: 'addMarker',
 						latLng: latLng,
 						map:{
@@ -288,16 +287,13 @@ jQuery(document).ready(function ($) {
 
 				data: data,
 				success:function (feedback) {
+					$('#map-directions').html('');
 					updateLocation(feedback);
 					data = $.parseJSON(feedback);
 
 					$.each(data, function () {
 						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
 					});
-
-
-
-
 
 					getDirections(origin, address);
 				},
