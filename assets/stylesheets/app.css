@@ -120,7 +120,6 @@ h1, h2, h3, h4, p {
 #bodycontent, #content,
 #locationinfo{
     background-color: white;
-
 }
 
 #copyright {
@@ -255,4 +254,10 @@ img {
 ----------------------------------------- */
 
 
+/* -----------------------------------------
+   Locations Page
+----------------------------------------- */
 
+#map-canvas {
+    margin: 20px 0;
+}

@@ -3,14 +3,22 @@
 
 	<div class="eight columns">
 
-		<div id="map-canvas" style="height: 250px; width: 100%"></div>
-
-
-		<div id="locationinfo">
-			<h1></h1>
-			<h3></h3>
-			<p></p>
+		<div class="row">
+			<div class="twelve columns">
+				<div id="map-canvas" style="height: 250px; width: 100%"></div>
+			</div>
 		</div>
+
+		<div class="row">
+			<div class="twelve columns">
+				<div id="locationinfo">
+					<h1></h1>
+					<h3></h3>
+					<p></p>
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 
