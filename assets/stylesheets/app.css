@@ -261,3 +261,37 @@ img {
 #map-canvas {
     margin: 20px 0;
 }
+
+
+/* Tag cloud */
+
+#tags {
+    margin: 20px 0;
+}
+
+#tags ul {
+        margin:1em 0;
+        padding:.5em 10px;
+        text-align:center;
+    }
+    #tags li{
+        margin:0 10px;
+        padding:0;
+        list-style:none;
+        display:inline;
+        float: left;
+        background-color: #7CC0F4;
+        border:1px solid #3277AD;
+        -moz-border-radius: 4em 0em 0em 4em;
+        border-radius: 4em 0em 0em 4em;
+    }
+    #tags li a{
+        text-decoration:none;
+        color:#fff;
+        padding:2px 8px 2px 15px;
+    }
+    #tags li a:hover{
+        color:#cff400;
+    }
+
+/* // Tag cloud */

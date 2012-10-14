@@ -15,6 +15,10 @@
 					<h1></h1>
 					<h3></h3>
 					<p></p>
+					<div id="tags" class="clearfix">
+						<ul class="clearfix"></ul>
+					</div>
+
 				</div>
 			</div>
 		</div>

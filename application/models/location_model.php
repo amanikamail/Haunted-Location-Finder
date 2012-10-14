@@ -43,7 +43,7 @@ class Location_model extends CI_Model {
 
 	}
 
-	function updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $uid)
+	function updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $tags, $uid)
 	{
 		if ($idlocation  == '') {
 			$data = array(
@@ -55,6 +55,7 @@ class Location_model extends CI_Model {
 				'location_zip'      => $locationzip,
 				'lat'               => $lat,
 				'lng'               => $lng,
+				'tags'              => $tags,
 				'description'       => $locationdescription,
 				'userid'			=> $uid
 			);
@@ -68,6 +69,7 @@ class Location_model extends CI_Model {
 				'location_zip'      => $locationzip,
 				'lat'               => $lat,
 				'lng'               => $lng,
+				'tags'              => $tags,
 				'description'       => $locationdescription,
 				'userid'			=> $uid
 			);

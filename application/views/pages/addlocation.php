@@ -67,6 +67,12 @@
 			</div>
 			<div class="row">
 				<div class="twelve columns">
+					<label for="tags">Enter Tags to Describe This Location</label>
+					<input name="tags" id="tags" value="" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="twelve columns">
 					<?= form_submit('mysubmit', 'Submit Updates!'); ?>
 				</div>
 			</div>

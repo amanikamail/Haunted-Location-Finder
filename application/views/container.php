@@ -30,16 +30,19 @@ $this->load->view('footer');
 
 <script src="<?php echo base_url();?>assets/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/assets/js/superfish-min.js"></script>
+<script type="text/javascript" src="/assets/js/tagcloud/tinysort.js"></script>
 
 
 <?php if ((isset($filename) && ($filename == 'locations' || $filename == 'addlocation'))) {
 	?>
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script src="/assets/js/gmap3.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="/assets/js/gmap3.js"></script>
 
-	<?
-}
-?>
+<? } ?>
+
+<?php if (isset($filename) && ($filename == 'addlocation')) {
+	echo '<script src="' . base_url() . 'assets/js/jquery-tags-input/jquery.tagsinput.js"></script>';
+}?>
 
 <script src="<?php echo base_url();?>assets/js/app.js"></script>
 

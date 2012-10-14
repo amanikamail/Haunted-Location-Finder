@@ -168,13 +168,21 @@ jQuery(document).ready(function ($) {
 		$('#locationinfo h1').empty();
 		$('#locationinfo h3').empty();
 		$('#locationinfo p').empty();
+		$('#locationinfo #tags ul').empty();
 
 		data = $.parseJSON(feedback);
 		$.each(data, function () {
 			$('#locationinfo h1').append(this.location_name);
 			$('#locationinfo h3').append(this.location_street + ' ' + this.location_city + ' ' + this.location_state + ' ' + this.location_zip);
 			$('#locationinfo p').append(this.description);
+
+			var mystring = this.tags;
+
+			mystring = '<li><a href="#">' + mystring.replace(/,/gi,'</a></li><li><a href="#">') + '</li>';
+			$('#locationinfo #tags ul').append(mystring);
 		});
+
+
 	}
 
 	function geoCode(location) {
@@ -204,6 +212,16 @@ jQuery(document).ready(function ($) {
 	}
 
 	if ($('body').hasClass('addlocation')) {
+
+		$('#tags').tagsInput({
+			'height':'100px',
+			'width':'300px',
+			'interactive':true,
+			'defaultText':'add a tag',
+			'placeholderColor' : '#666666',
+			'removeWithBackspace' : true
+		});
+
 		/* Create a New Location or update an existing one */
 		$('form#locationForm').submit(function (e) {
 

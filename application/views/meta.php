@@ -14,6 +14,7 @@
 <!-- Included CSS Files -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/foundation.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/app.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-tags-input/jquery.tagsinput.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/superfish-min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
 

@@ -289,8 +289,9 @@
 			$locationdescription = html_purify($this->input->post('location_description', FALSE));
 			$lat = (string)$this->input->post('tbxlat', TRUE);
 			$lng = (string)$this->input->post('tbxlng', TRUE);
+			$tags = (string)$this->input->post('tags', TRUE);
 			$uid = $this->user_id;
-			$this->Location_model->updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $uid);
+			$this->Location_model->updateLocation($idlocation, $locationname, $locationstreet, $locationcity, $locationstate, $locationzip, $locationdescription, $lat, $lng, $tags, $uid);
 		}
 
 		function pageDelete()
