@@ -295,3 +295,12 @@ img {
     }
 
 /* // Tag cloud */
+
+
+/* -----------------------------------------
+   Add Locations Page
+----------------------------------------- */
+
+body.addlocation #thankyou {
+	display: none;
+}

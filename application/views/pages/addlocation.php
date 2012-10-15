@@ -5,6 +5,8 @@
 
 			<div id="map-canvas"></div>
 
+			<div id="thankyou"><h3>Thank You For Your Submission</h3></div>
+
 			<?php $attributes = array('class' => 'nice', 'id' => 'locationForm');
 			echo form_open('', $attributes);
 			?>

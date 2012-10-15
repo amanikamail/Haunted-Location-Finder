@@ -211,6 +211,23 @@ jQuery(document).ready(function ($) {
 
 	}
 
+	function resetLocationForm(data) {
+		$('input[name="userid"]').val(data.userid);
+		$('input[name="location_name"]').val('');
+		$('input[name="locationid"]').val('');
+		$('input[name="tbxlat"]').val('');
+		$('input[name="tbxlng"]').val('');
+		$('input[name="location_street"]').val('');
+		$('input[name="location_city"]').val('');
+		$('input[name="location_state"]').val('');
+		$('input[name="location_zip"]').val('');
+		$('input[name="tags_tagsinput"]').val('');
+
+		$('textarea[name="location_description"]').val('');
+		CKEDITOR.instances['locationeditor'].setData('');
+
+	}
+
 	if ($('body').hasClass('addlocation')) {
 
 		$('#tags').tagsInput({
@@ -226,6 +243,8 @@ jQuery(document).ready(function ($) {
 		$('form#locationForm').submit(function (e) {
 
 			e.preventDefault();
+
+			$('#thankyou').css('display','none');
 
 			var location ='';
 
@@ -244,6 +263,7 @@ jQuery(document).ready(function ($) {
 				beforeSend: geoCode(location),
 				success: function() {
 					$.ajax({
+						beforeSend: geoCode(location),
 						url:"/client/locationUpdate",
 						type:"POST",
 						dataType:'json',
@@ -260,6 +280,9 @@ jQuery(document).ready(function ($) {
 							data.location_state = "State Goes Here";
 							data.location_zip = "Zip Goes Here";
 							data.location_description = "Insert Location Description Here";
+
+							$('#thankyou').css('display','inline');
+							resetLocationForm(data);
 						}
 					});
 				}

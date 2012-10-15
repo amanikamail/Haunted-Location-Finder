@@ -533,6 +533,7 @@ jQuery(document).ready(function ($) {
 			beforeSend: geoCode(location),
 			success: function() {
 				$.ajax({
+					beforeSend: geoCode(location),
 					url:"/client/locationUpdate",
 					type:"POST",
 					dataType:'json',
@@ -594,6 +595,9 @@ jQuery(document).ready(function ($) {
 
 	function resetLocationForm(data) {
 		$('input[name="userid"]').val(data.userid);
+		$('input[name="tbxlat"]').val('');
+		$('input[name="tbxlng"]').val('');
+		$('input[name="locationid"]').val('');
 		$('input[name="location_name"]').val('');
 		$('input[name="location_street"]').val('');
 		$('input[name="location_city"]').val('');
