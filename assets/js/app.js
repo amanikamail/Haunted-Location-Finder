@@ -1,8 +1,7 @@
-
 jQuery(document).ready(function ($) {
 
 	$.ajaxSetup({
-		error:function (jqXHR, exception) {
+		error: function (jqXHR, exception) {
 			if (jqXHR.status === 0) {
 				alert('Not connect.\n Verify Network.');
 			} else if (jqXHR.status == 404) {
@@ -21,21 +20,18 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
-	var geocoder;
-	var map;
-	var address;
-	var origin;
+	var geocoder, map, address, origin, lat, lng;
 
 	function getLocationDetails() {
 		$.ajax({
-			url:"/client/getLocationList/",
-			type:"POST",
-			success:function (feedback) {
+			url: "/locations/getLocationList/",
+			type: "POST",
+			success: function (feedback) {
 				var pathname = window.location.pathname.split("/");
 				var user = {};
 				data = $.parseJSON(feedback);
 				var items = [];
-				if (feedback.length > 0 ) {
+				if (feedback.length > 0) {
 					$('select#address').empty();
 					$('select#address').append('<option value="">None</option>');
 					$.each(data, function () {
@@ -46,28 +42,29 @@ jQuery(document).ready(function ($) {
 				}
 				$('select#address').append(items.join(''));
 			},
-			failure:function (data) {
+			failure: function (data) {
 				console.log('getLocationDetails Failed');
 			}
 		});
 	}
 
 	function updateMap(address) {
-		$('#map-canvas').gmap3({ action:'geoLatLng',
-			callback:function (latLng) {
+		$('#map-canvas').gmap3({ action: 'geoLatLng',
+			callback: function (latLng) {
 				if (latLng) {
+					$(this).data('origin', latLng);
 					$(this).gmap3(
 						{
-							action:'clear'
+							action: 'clear'
 						},
 						{
-							action:'setCenter',
-							args:[ latLng ]
+							action: 'setCenter',
+							args: [ latLng ]
 						},
 						{
 							action: 'addMarker',
 							latLng: latLng,
-							map:{
+							map: {
 								center: true,
 								zoom: 10
 							}
@@ -75,7 +72,7 @@ jQuery(document).ready(function ($) {
 						{
 							action: 'addMarker',
 							address: address,
-							map:{
+							map: {
 								center: true,
 								zoom: 10
 							}
@@ -91,26 +88,26 @@ jQuery(document).ready(function ($) {
 	function getDirections(origin, address) {
 		$('#map-canvas').gmap3(
 			{action: 'clear'},
-			{ action:'getRoute',
-				options:{
-					origin:origin,
-					destination:address,
+			{ action: 'getRoute',
+				options: {
+					origin: origin,
+					destination: address,
 					travelMode: google.maps.DirectionsTravelMode.DRIVING
 				},
-				callback: function(results){
+				callback: function (results) {
 					if (!results) return;
 					$(this).gmap3(
-						{ action:'init',
+						{ action: 'init',
 							zoom: 13,
 							mapTypeId: google.maps.MapTypeId.ROADMAP,
 							streetViewControl: true,
 							center: origin
 						},
-						{ action:'addDirectionsRenderer',
-							options:{
+						{ action: 'addDirectionsRenderer',
+							options: {
 								preserveViewport: true,
 								draggable: false,
-								directions:results
+								directions: results
 							}
 						},
 						{
@@ -126,22 +123,23 @@ jQuery(document).ready(function ($) {
 	function getDistance(origin, address) {
 
 		$('#map-canvas').gmap3({
-			action:'geoLatLng', callback: function (latLng) {
+			action: 'geoLatLng',
+			callback: function (latLng) {
 				$(this).data('origin', latLng);
 			},
-			action:'getDistance',
-			options:{
+			action: 'getDistance',
+			options: {
 				origins: [origin],
-				destinations:[address],
+				destinations: [address],
 				travelMode: google.maps.TravelMode.DRIVING
 			},
-			callback: function(results){
+			callback: function (results) {
 				var html = '';
-				if (results){
-					for (var i = 0; i < results.rows.length; i++){
+				if (results) {
+					for ( var i = 0; i < results.rows.length; i++ ) {
 						var elements = results.rows[i].elements;
-						for(var j=0; j<elements.length; j++){
-							switch(elements[j].status){
+						for ( var j = 0; j < elements.length; j++ ) {
+							switch ( elements[j].status ) {
 								case google.maps.DistanceMatrixStatus.OK:
 									console.log('distance: ' + elements[j].distance.text + ' duration: ' + elements[j].duration.text);
 									html += elements[j].distance.text + ' (' + elements[j].duration.text + ')<br />';
@@ -158,7 +156,7 @@ jQuery(document).ready(function ($) {
 				} else {
 					html = 'error';
 				}
-				$('#results').html( html );
+				$('#results').html(html);
 			}
 		});
 	}
@@ -178,7 +176,7 @@ jQuery(document).ready(function ($) {
 
 			var mystring = this.tags;
 
-			mystring = '<li><a href="#">' + mystring.replace(/,/gi,'</a></li><li><a href="#">') + '</li>';
+			mystring = '<li><a class="tag">' + mystring.replace(/,/gi, '</a></li><li><a class="tag">') + '</li>';
 			$('#locationinfo #tags ul').append(mystring);
 		});
 
@@ -189,8 +187,8 @@ jQuery(document).ready(function ($) {
 		$('#map-canvas').gmap3(
 			{ action: 'getLatLng',
 				address: location,
-				callback: function(result){
-					if (result){
+				callback: function (result) {
+					if (result) {
 						ParseLocation(result[0].geometry.location);
 
 //						$(this).gmap3({action: 'setCenter', args:[ result[0].geometry.location ]});
@@ -231,12 +229,12 @@ jQuery(document).ready(function ($) {
 	if ($('body').hasClass('addlocation')) {
 
 		$('#tags').tagsInput({
-			'height':'100px',
-			'width':'300px',
-			'interactive':true,
-			'defaultText':'add a tag',
-			'placeholderColor' : '#666666',
-			'removeWithBackspace' : true
+			'height': '100px',
+			'width': '300px',
+			'interactive': true,
+			'defaultText': 'add a tag',
+			'placeholderColor': '#666666',
+			'removeWithBackspace': true
 		});
 
 		/* Create a New Location or update an existing one */
@@ -244,31 +242,31 @@ jQuery(document).ready(function ($) {
 
 			e.preventDefault();
 
-			$('#thankyou').css('display','none');
+			$('#thankyou').css('display', 'none');
 
-			var location ='';
+			var location = '';
 
 			var location = $('input[name="location_street"]').val() + ', '
-				+ $('input[name="location_city"]').val()  + ', '
+				+ $('input[name="location_city"]').val() + ', '
 				+ $('input[name="location_state"]').val() + ', '
 				+ $('input[name="location_zip"]').val();
 
 			geoCode(location);
 
 			var idlocation = $('input[name="idlocation"]').val();
-			for (instance in CKEDITOR.instances)
+			for ( instance in CKEDITOR.instances )
 				CKEDITOR.instances[instance].updateElement();
 
 			$.ajax({
 				beforeSend: geoCode(location),
-				success: function() {
+				success: function () {
 					$.ajax({
 						beforeSend: geoCode(location),
-						url:"/client/locationUpdate",
-						type:"POST",
-						dataType:'json',
-						data:$('form#locationForm').serialize(),
-						success:function (feedback) {
+						url: "/client/locationUpdate",
+						type: "POST",
+						dataType: 'json',
+						data: $('form#locationForm').serialize(),
+						success: function (feedback) {
 							console.log('Location Updated');
 							var pathname = window.location.pathname.split("/");
 							var data = {};
@@ -281,14 +279,12 @@ jQuery(document).ready(function ($) {
 							data.location_zip = "Zip Goes Here";
 							data.location_description = "Insert Location Description Here";
 
-							$('#thankyou').css('display','inline');
+							$('#thankyou').css('display', 'inline');
 							resetLocationForm(data);
 						}
 					});
 				}
 			})
-
-
 
 
 			return false;
@@ -298,17 +294,17 @@ jQuery(document).ready(function ($) {
 	if ($('body').hasClass('locations')) {
 		getLocationDetails();
 
-		$('#map-canvas').gmap3({ action:'geoLatLng',
-			callback:function (latLng) {
+		$('#map-canvas').gmap3({ action: 'geoLatLng',
+			callback: function (latLng) {
 				if (latLng) {
-					$(this).gmap3({action:'setCenter', args:[ latLng ]},
+					$(this).gmap3({action: 'setCenter', args: [ latLng ]},
 						{action: 'clear'},
 						{ action: 'addMarker',
-						latLng: latLng,
-						map:{
-							center: true,
-							zoom: 10
-						}}, origin = latLng);
+							latLng: latLng,
+							map: {
+								center: true,
+								zoom: 10
+							}}, origin = latLng);
 				} else {
 					alert('not localised !');
 				}
@@ -316,18 +312,18 @@ jQuery(document).ready(function ($) {
 		});
 
 
-		$('form#update').submit( function(e){
+		$('form#update').submit(function (e) {
 			e.preventDefault();
 
 			var idlocation = $('input[name="address"]').val();
 			var data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
 			data += $('form#update').serialize();
 			$.ajax({
-				url:"/client/getLocation",
-				type:"POST",
+				url: "/locations/getLocation",
+				type: "POST",
 
 				data: data,
-				success:function (feedback) {
+				success: function (feedback) {
 					$('#map-directions').html('');
 					updateLocation(feedback);
 					data = $.parseJSON(feedback);
@@ -344,6 +340,34 @@ jQuery(document).ready(function ($) {
 			});
 
 		});
+
+
+		$('#tags').on('click', 'a.tag',  function (e) {
+
+			e.preventDefault();
+
+			var lat = origin.lat().toString().substr(0, 12);
+			var lng = origin.lng().toString().substr(0, 12);
+
+			data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
+			data += 'latlng=' + origin + '&lat=' + lat + '&lng=' + lng + '&tag=' + $(this).text();
+
+			console.log(data);
+
+			$.ajax({
+				url: "/locations/getTaggedLocations",
+				type: "POST",
+				data: data,
+				success: function (feedback) {
+					console.log(feedback);
+				},
+				failure: function (feedback) {
+					console.log('faq not updated: ' + feedback);
+				}
+			});
+
+
+		})
 
 	}
 

@@ -9,10 +9,9 @@
 jQuery(document).ready(function ($) {
 
 
-
 	$(function () {
 		$.ajaxSetup({
-			error:function (jqXHR, exception) {
+			error: function (jqXHR, exception) {
 				if (jqXHR.status === 0) {
 					alert('Not connect.\n Verify Network.');
 				} else if (jqXHR.status === 404) {
@@ -48,10 +47,10 @@ jQuery(document).ready(function ($) {
 		data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
 		data += 'pageid=' + pageid;
 		$.ajax({
-			url:"/client/pageDelete",
-			type:"POST",
-			data:data,
-			success:function (feedback) {
+			url: "/client/pageDelete",
+			type: "POST",
+			data: data,
+			success: function (feedback) {
 				console.log('Page Deleted');
 				var newdata = {};
 
@@ -70,14 +69,14 @@ jQuery(document).ready(function ($) {
 				});
 
 				$.ajax({
-					url:"/client/save_routes",
-					type:"POST",
-					success:function () {
+					url: "/client/save_routes",
+					type: "POST",
+					success: function () {
 						console.log('routes updated');
 						rebuildPageList();
 						sortableSideList();
 					},
-					failure:function () {
+					failure: function () {
 						console.log('routes not updated');
 					}
 
@@ -94,14 +93,14 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 
 		var pageid = $('input[name="pageid"]').val();
-		for (instance in CKEDITOR.instances)
+		for ( instance in CKEDITOR.instances )
 			CKEDITOR.instances[instance].updateElement();
 		$.ajax({
-			url:"/client/pageUpdate",
-			type:"POST",
-			dataType:'json',
-			data:$('#pageForm').serialize(),
-			success:function (feedback) {
+			url: "/client/pageUpdate",
+			type: "POST",
+			dataType: 'json',
+			data: $('#pageForm').serialize(),
+			success: function (feedback) {
 				console.log('Page Updated');
 
 				var pathname = window.location.pathname.split("/");
@@ -126,14 +125,14 @@ jQuery(document).ready(function ($) {
 				}
 
 				$.ajax({
-					url:"/client/save_routes",
-					type:"POST",
-					success:function () {
+					url: "/client/save_routes",
+					type: "POST",
+					success: function () {
 						console.log('routes updated');
 						rebuildPageList();
 						sortableSideList();
 					},
-					failure:function () {
+					failure: function () {
 						console.log('routes not updated');
 					}
 
@@ -150,9 +149,9 @@ jQuery(document).ready(function ($) {
 
 	function getFAQDetails() {
 		$.ajax({
-			url:"/client/getFAQList/",
-			type:"POST",
-			success:function (feedback) {
+			url: "/client/getFAQList/",
+			type: "POST",
+			success: function (feedback) {
 				var pathname = window.location.pathname.split("/");
 				var user = {};
 				data = $.parseJSON(feedback);
@@ -168,7 +167,7 @@ jQuery(document).ready(function ($) {
 
 				$('ul#faqlist').append(items.join(''));
 			},
-			failure:function (data) {
+			failure: function (data) {
 				console.log('getFAQDetails Failed');
 			}
 		});
@@ -182,13 +181,13 @@ jQuery(document).ready(function ($) {
 		data += $(form).serialize();
 
 		$.ajax({
-			url:"/client/faqUpdate",
-			type:"POST",
-			data:data,
-			success:function (feedback) {
+			url: "/client/faqUpdate",
+			type: "POST",
+			data: data,
+			success: function (feedback) {
 				getFAQDetails();
 			},
-			failure:function (feedback) {
+			failure: function (feedback) {
 				console.log('faq not updated: ' + feedback);
 			}
 		});
@@ -205,14 +204,14 @@ jQuery(document).ready(function ($) {
 		data += $(form).serialize();
 
 		$.ajax({
-			url:"/client/catUpdate",
-			type:"POST",
-			data:data,
-			success:function (feedback) {
+			url: "/client/catUpdate",
+			type: "POST",
+			data: data,
+			success: function (feedback) {
 				console.log('cat updated');
 				getCategoryDetails();
 			},
-			failure:function (feedback) {
+			failure: function (feedback) {
 				console.log('cat not updated: ' + feedback);
 			}
 		});
@@ -230,14 +229,14 @@ jQuery(document).ready(function ($) {
 		data += $(form).serialize();
 
 		$.ajax({
-			url:"/client/deleteFaq",
-			type:"POST",
-			data:data,
-			success:function (feedback) {
+			url: "/client/deleteFaq",
+			type: "POST",
+			data: data,
+			success: function (feedback) {
 				console.log('faq deteled');
 				getFAQDetails();
 			},
-			failure:function (feedback) {
+			failure: function (feedback) {
 				console.log('faq not deleted: ' + feedback);
 			}
 		})
@@ -255,14 +254,14 @@ jQuery(document).ready(function ($) {
 		data += $(form).serialize();
 
 		$.ajax({
-			url:"/client/deleteCategory",
-			type:"POST",
-			data:data,
-			success:function (feedback) {
+			url: "/client/deleteCategory",
+			type: "POST",
+			data: data,
+			success: function (feedback) {
 				console.log('cat deteled');
 				getCategoryDetails();
 			},
-			failure:function (feedback) {
+			failure: function (feedback) {
 				console.log('cat not deleted: ' + feedback);
 			}
 		})
@@ -275,9 +274,9 @@ jQuery(document).ready(function ($) {
 
 	function getCategoryDetails() {
 		$.ajax({
-			url:"/client/getCatList/",
-			type:"POST",
-			success:function (feedback) {
+			url: "/client/getCatList/",
+			type: "POST",
+			success: function (feedback) {
 				var pathname = window.location.pathname.split("/");
 				var user = {};
 				data = $.parseJSON(feedback);
@@ -289,7 +288,7 @@ jQuery(document).ready(function ($) {
 				});
 				$('ul#catlist').append(items.join(''));
 			},
-			failure:function (data) {
+			failure: function (data) {
 				console.log('getCatDetails Failed');
 			}
 		})
@@ -311,9 +310,9 @@ jQuery(document).ready(function ($) {
 	function rebuildPageList() {
 		console.log('Entered rebuildPageList');
 		$.ajax({
-			url:"/pages/getPageList/",
-			type:"POST",
-			success:function (feedback) {
+			url: "/pages/getPageList/",
+			type: "POST",
+			success: function (feedback) {
 				data = $.parseJSON(feedback);
 
 				$('ul#reorder').empty();
@@ -369,11 +368,11 @@ jQuery(document).ready(function ($) {
 
 			} else {
 				$.ajax({
-					url:"/client/getPageDetails/",
-					type:"POST",
-					data:data,
-					dataType:'json',
-					success:function (data) {
+					url: "/client/getPageDetails/",
+					type: "POST",
+					data: data,
+					dataType: 'json',
+					success: function (data) {
 						resetPageForm(data);
 					}
 				});
@@ -387,16 +386,16 @@ jQuery(document).ready(function ($) {
 
 	function sortableSideList() {
 		$('#reorder').sortable({
-			opacity:'0.5',
-			update:function (e, ui) {
+			opacity: '0.5',
+			update: function (e, ui) {
 				newOrder = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
 				newOrder += $("#reorder").sortable('serialize');
 				console.log(newOrder);
 				$.ajax({
-					url:"/client/saveOrder",
-					type:"POST",
-					data:newOrder,
-					success:function (feedback) {
+					url: "/client/saveOrder",
+					type: "POST",
+					data: newOrder,
+					success: function (feedback) {
 						console.log('success');
 					}
 				});
@@ -457,8 +456,8 @@ jQuery(document).ready(function ($) {
 		$('#map-canvas').gmap3(
 			{ action: 'getLatLng',
 				address: location,
-				callback: function(result){
-					if (result){
+				callback: function (result) {
+					if (result) {
 						ParseLocation(result[0].geometry.location);
 
 //						$(this).gmap3({action: 'setCenter', args:[ result[0].geometry.location ]});
@@ -471,8 +470,8 @@ jQuery(document).ready(function ($) {
 	}
 
 	function ParseLocation(location, lat, lng) {
-		 var lat = location.lat().toString().substr(0, 12);
-		 var lng = location.lng().toString().substr(0, 12);
+		var lat = location.lat().toString().substr(0, 12);
+		var lng = location.lng().toString().substr(0, 12);
 
 		$('#tbxlat').val(lat);
 		$('#tbxlng').val(lng);
@@ -483,18 +482,18 @@ jQuery(document).ready(function ($) {
 
 	function getLocationDetails() {
 		$.ajax({
-			url:"/client/getLocationList/",
-			type:"POST",
-			success:function (feedback) {
+			url: "/client/getLocationList/",
+			type: "POST",
+			success: function (feedback) {
 				var pathname = window.location.pathname.split("/");
 				var user = {};
 				data = $.parseJSON(feedback);
 				var items = [];
-				if (feedback.length > 0 ) {
+				if (feedback.length > 0) {
 					$('table#locations').empty();
 					$('table#locations').append('<thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Delete</th></tr></thead>');
 					$.each(data, function () {
-						var newRow = $('<tr><td>' + this.location_name + '</td><td>' + this.location_city + '</td><td>' + this.location_state + '</td><td>' + this.location_zip + '</td><td><a href="/client/deletelocation/'+ this.idlocation + '" class="locdelete"><img SRC="/assets/images/icons/delete-icon-32.png" ALT="Delete button"></a></td></tr>');
+						var newRow = $('<tr><td>' + this.location_name + '</td><td>' + this.location_city + '</td><td>' + this.location_state + '</td><td>' + this.location_zip + '</td><td><a href="/client/deletelocation/' + this.idlocation + '" class="locdelete"><img SRC="/assets/images/icons/delete-icon-32.png" ALT="Delete button"></a></td></tr>');
 						$('table#locations').append(newRow);
 
 					});
@@ -505,7 +504,7 @@ jQuery(document).ready(function ($) {
 
 
 			},
-			failure:function (data) {
+			failure: function (data) {
 				console.log('getLocationDetails Failed');
 			}
 		});
@@ -516,29 +515,29 @@ jQuery(document).ready(function ($) {
 
 		e.preventDefault();
 
-		var location ='';
+		var location = '';
 
 		var location = $('input[name="location_street"]').val() + ', '
-					+ $('input[name="location_city"]').val()  + ', '
-					+ $('input[name="location_state"]').val() + ', '
-					+ $('input[name="location_zip"]').val();
+			+ $('input[name="location_city"]').val() + ', '
+			+ $('input[name="location_state"]').val() + ', '
+			+ $('input[name="location_zip"]').val();
 
 		geoCode(location);
 
 		var idlocation = $('input[name="idlocation"]').val();
-		for (instance in CKEDITOR.instances)
+		for ( instance in CKEDITOR.instances )
 			CKEDITOR.instances[instance].updateElement();
 
 		$.ajax({
 			beforeSend: geoCode(location),
-			success: function() {
+			success: function () {
 				$.ajax({
 					beforeSend: geoCode(location),
-					url:"/client/locationUpdate",
-					type:"POST",
-					dataType:'json',
-					data:$('form#locationForm').serialize(),
-					success:function (feedback) {
+					url: "/client/locationUpdate",
+					type: "POST",
+					dataType: 'json',
+					data: $('form#locationForm').serialize(),
+					success: function (feedback) {
 						console.log('Location Updated');
 						getLocationDetails();
 						var pathname = window.location.pathname.split("/");
@@ -559,8 +558,6 @@ jQuery(document).ready(function ($) {
 		})
 
 
-
-
 		return false;
 	});
 
@@ -576,15 +573,15 @@ jQuery(document).ready(function ($) {
 
 		console.log(data);
 		$.ajax({
-			url:"/client/deleteLocation",
-			type:"POST",
+			url: "/client/deleteLocation",
+			type: "POST",
 			dataType: 'html',
 			data: data,
-			success:function (feedback) {
+			success: function (feedback) {
 				console.log('location deleted');
 				getLocationDetails();
 			},
-			failure:function (feedback) {
+			failure: function (feedback) {
 				console.log('location not deleted: ' + feedback);
 			}
 		})
@@ -613,8 +610,6 @@ jQuery(document).ready(function ($) {
 	/* Remove this and jquery.placeholder.min.js if you don't need :) */
 
 	$('input, textarea').placeholder();
-
-
 
 
 });

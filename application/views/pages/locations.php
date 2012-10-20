@@ -11,6 +11,14 @@
 
 		<div class="row">
 			<div class="twelve columns">
+				<div id="results">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="twelve columns">
 				<div id="locationinfo">
 					<h1></h1>
 					<h3></h3>

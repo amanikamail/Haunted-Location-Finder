@@ -2,6 +2,48 @@
 
 class Location_model extends CI_Model {
 
+	function __construct() {
+	}
+
+	# Spherical Law of Cosines
+	function distance_slc($lat1, $lon1, $lat2, $lon2) {
+		$earth_radius = 3960.00; # in miles
+		$delta_lat = $lat2 - $lat1;
+		$delta_lon = $lon2 - $lon1;
+		$alpha    = $delta_lat/2;
+		$beta     = $delta_lon/2;
+		$a        = sin(deg2rad($alpha)) * sin(deg2rad($alpha)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin(deg2rad($beta)) * sin(deg2rad($beta)) ;
+		$c        = asin(min(1, sqrt($a)));
+		$distance = 2*$earth_radius * $c;
+		$distance = round($distance, 4);
+
+		return $distance;
+	}
+
+	function getAjaxClosestLocations($latlng, $originlat, $originlng, $tag) {
+
+		$pieces = explode(',', $latlng);
+
+		$array = array(
+			'tags' => $tag,
+		);
+
+		$this->db->select('*')->from('locations')->like($array);
+
+		$location = $this->db->get();
+
+
+		foreach ($location->result_array() as $address) {
+
+//			$distance = distance_slc($originlat, $originlng, $address['lat'], $address['lng']);
+			$test = $originlat . $originlng . $address['lat'] . $address['lng'];
+			var_dump($test);
+
+		}
+
+//		echo json_encode($location->result_array());
+	}
+
 	function getAjaxLocationList()
 	{
 		$this->db->select( '*' )
