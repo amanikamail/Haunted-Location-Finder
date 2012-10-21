@@ -163,15 +163,15 @@ jQuery(document).ready(function ($) {
 
 	function updateLocation(feedback) {
 
-		$('#locationinfo h1').empty();
-		$('#locationinfo h3').empty();
+		$('#locationinfo h2').empty();
+		$('#locationinfo h4').empty();
 		$('#locationinfo p').empty();
 		$('#locationinfo #tags ul').empty();
 
 		data = $.parseJSON(feedback);
 		$.each(data, function () {
-			$('#locationinfo h1').append(this.location_name);
-			$('#locationinfo h3').append(this.location_street + ' ' + this.location_city + ' ' + this.location_state + ' ' + this.location_zip);
+			$('#locationinfo h2').append(this.location_name);
+			$('#locationinfo h4').append(this.location_street + ' ' + this.location_city + ' ' + this.location_state + ' ' + this.location_zip);
 			$('#locationinfo p').append(this.description);
 
 			var mystring = this.tags;
@@ -387,7 +387,7 @@ jQuery(document).ready(function ($) {
 
 					if (feedback.data.length > 0) {
 						$('#locations').empty();
-						$('#locations').html('<h3>Locations within 50 Miles</h3>');
+						$('#locations').html('<h4>Locations within 50 Miles</h4>');
 						$.each(feedback.data, function (i, obj) {
 							var newRow = $('<div class="twelve columns"><p><a class="loc" href="' + obj.idlocation +'">' + obj.location_name + ' ' + obj.location_street + ',' + obj.location_city + ', ' + obj.location_state + ' '+ obj.location_zip + '</a></p></div>');
 							$('#locations').append(newRow);

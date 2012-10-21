@@ -20,8 +20,8 @@
 		<div class="row">
 			<div class="twelve columns">
 				<div id="locationinfo">
-					<h1></h1>
-					<h3></h3>
+					<h2></h2>
+					<h4></h4>
 					<p></p>
 					<div id="tags" class="clearfix">
 						<ul class="clearfix"></ul>

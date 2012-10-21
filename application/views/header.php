@@ -4,7 +4,7 @@
 
     <div id="header" class="row">
         <div class="eight columns">
-            <a href="/"><img id="logo" src="<?php echo base_url();?>assets/images/site-images/logo.png"></a>
+            <h1><a href="/">Haunted Location Finder</a></h1>
         </div>
         <div class="four columns">
             

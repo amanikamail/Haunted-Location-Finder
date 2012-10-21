@@ -31,7 +31,33 @@ body {
 
 h1, h2, h3, h4, p {
     color: black;
+}
 
+h1, #header a {
+    font-family: 'Eagle Lake', cursive;
+    color: red;
+}
+
+h2 {
+    font-size: 36px;
+    line-height: 40px;
+    font-size: 3rem;
+}
+
+h4 {
+    font-size: 18px;
+    font-size: 1.75rem;
+}
+
+h2,h3,h4 {
+    font-family: 'Droid Serif', Georgia, Times, serif;
+
+}
+
+p {
+    font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 25px;
 }
 
 #header {
@@ -99,7 +125,7 @@ h1, h2, h3, h4, p {
 #header h1 {
     color: white;
     font-size: 20px;
-    font-size: 1.75rem;
+    font-size: 3.45rem;
 }
 
 #logo {
@@ -135,6 +161,10 @@ h1, h2, h3, h4, p {
     font-size: 1.15rem;
     margin-top: 5px;
     margin-top: .55rem;
+}
+
+#metamenu nav {
+    float: right;
 }
 
 /* -----------------------------------------

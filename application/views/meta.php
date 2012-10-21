@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/superfish-min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
 
+<link href='http://fonts.googleapis.com/css?family=Eagle+Lake|Droid+Serif|Droid+Sans' rel='stylesheet' type='text/css'>
 
 
 <!--[if lt IE 9]>
