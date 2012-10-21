@@ -20,6 +20,15 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+//	Tiny Nav for Mobile Menus
+
+	$(document).ready(function(){
+		$(".nav-button").click(function () {
+			$(".nav-button,.primary-nav").toggleClass("open");
+		});
+	});
+
+
 	var geocoder, map, address, origin, lat, lng;
 
 	function getLocationDetails() {

@@ -31,8 +31,8 @@
 
 				if ($this->hasChildren($menu['pageid']))
 				{
-					$html.="<li class=\"closed\"><a href=\"".$this->anchor . $this->sectionid . "/". $menu['pageid'] . "/\">
-                      " . $menu['node'] . "</a>\n<ul>\n";
+					$html.="<li class=\"closed has-flyout\"><a class=\"flyout-toggle\" href=\"".$this->anchor . $this->sectionid . "/". $menu['pageid'] . "/\">
+                      " . $menu['node'] . "</a>\n<ul class=\"flyout\">\n";
 					$childarray = $menu['children'];
 					foreach ( $childarray as $child)
 					{

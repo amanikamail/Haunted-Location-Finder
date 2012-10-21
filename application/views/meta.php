@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-tags-input/jquery.tagsinput.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/superfish-min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url();?>assets/stylesheets/mobilemenu.css"/>
 
 <link href='http://fonts.googleapis.com/css?family=Eagle+Lake|Droid+Serif|Droid+Sans' rel='stylesheet' type='text/css'>
 
@@ -34,6 +35,7 @@
 
 <script src="<?php echo base_url();?>assets/js/libs/foundation.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/libs/modernizr.foundation.js"></script>
+<script src="<?php echo base_url();?>assets/js/tinynav.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.cycle.js"></script>
 
 

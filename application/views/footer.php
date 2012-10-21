@@ -5,7 +5,7 @@
         <p>&copy; 2003 - <?php echo date("Y");?> Open Sky Media, LLC | </p>
 
     </div>
-    <div id="metamenu" class="eight columns">
+    <div id="metamenu" class="eight columns hide-for-small">
 
 	    <nav>
 		    <ul class="menu sf-menu">
@@ -15,5 +15,9 @@
 		    </ul>
 	    </nav>
     </div>
+
+
+
+
 </div>
 

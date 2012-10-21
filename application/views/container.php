@@ -17,7 +17,7 @@
 </head>
 
 
-<body class="off-canvas slide-nav <?php echo $filename ?>" accesskey="">
+<body class="<?php echo $filename ?>" accesskey="">
 <?php
 $this->load->view('header');
 $this->load->view($page);
