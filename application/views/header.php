@@ -13,7 +13,7 @@
 
 
 	<div id="navigation" class="row">
-		<div id="topmenu" class="twelve columns">
+		<div id="topmenu" class="twelve columns phone-two">
 			<nav>
 				<ul class="menu sf-menu">
 					<?php
