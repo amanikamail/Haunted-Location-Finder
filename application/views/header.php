@@ -1,5 +1,5 @@
 <div id="wrapper" class="container">
-	<div class="row" class="show-for-small">
+	<div class="row" class="">
 		<div id="phonemenu" class="phone-two show-for-small">
 			<nav >
 				<button class="nav-button">Toggle Navigation</button>

@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
 
 //	Tiny Nav for Mobile Menus
 
-	$(document).ready(function(){
+	$(document).ready(function () {
 		$(".nav-button").click(function () {
 			$(".nav-button,.primary-nav").toggleClass("open");
 		});
@@ -418,6 +418,8 @@ jQuery(document).ready(function ($) {
 			resizeContainer: false,
 			slideResize: false
 		});
+
+
 	}
 
 });
