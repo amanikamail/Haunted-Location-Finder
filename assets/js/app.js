@@ -311,23 +311,49 @@ jQuery(document).ready(function ($) {
 			}
 		});
 
-
 		$('form#update').submit(function (e) {
 			e.preventDefault();
-
-			var idlocation = $('input[name="address"]').val();
 			var data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
 			data += $('form#update').serialize();
 			$.ajax({
 				url: "/locations/getLocation",
 				type: "POST",
-
 				data: data,
 				success: function (feedback) {
 					$('#map-directions').html('');
 					updateLocation(feedback);
 					data = $.parseJSON(feedback);
 
+					$.each(data, function () {
+						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
+					});
+
+					getDirections(origin, address);
+				},
+				failure: function (data) {
+					console.log(data);
+				}
+			});
+
+		});
+
+		$('#locations').on('click', 'a.loc', function (e) {
+
+			e.preventDefault();
+
+			data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
+			data += 'address=' + $(this).attr('href');
+
+			console.log(data);
+
+			$.ajax({
+				url: "/locations/getLocation",
+				type: "POST",
+				data: data,
+				success: function (feedback) {
+					$('#map-directions').html('');
+					updateLocation(feedback);
+					data = $.parseJSON(feedback);
 					$.each(data, function () {
 						address = this.location_street + ', ' + this.location_city + ', ' + this.location_state + ' ' + this.location_zip;
 					});
@@ -352,14 +378,21 @@ jQuery(document).ready(function ($) {
 			data = 'csrf_test_name=' + $.cookie('csrf_cookie_name') + '&';
 			data += 'latlng=' + origin + '&lat=' + lat + '&lng=' + lng + '&tag=' + $(this).text();
 
-			console.log(data);
-
 			$.ajax({
 				url: "/locations/getTaggedLocations",
 				type: "POST",
+				dataType: "json",
 				data: data,
 				success: function (feedback) {
-					console.log(feedback);
+
+					if (feedback.data.length > 0) {
+						$('#locations').empty();
+						$('#locations').html('<h3>Locations within 50 Miles</h3>');
+						$.each(feedback.data, function (i, obj) {
+							var newRow = $('<div class="twelve columns"><p><a class="loc" href="' + obj.idlocation +'">' + obj.location_name + ' ' + obj.location_street + ',' + obj.location_city + ', ' + obj.location_state + ' '+ obj.location_zip + '</a></p></div>');
+							$('#locations').append(newRow);
+						});
+					}
 				},
 				failure: function (feedback) {
 					console.log('faq not updated: ' + feedback);

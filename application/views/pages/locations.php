@@ -11,7 +11,7 @@
 
 		<div class="row">
 			<div class="twelve columns">
-				<div id="results">
+				<div id="locations">
 
 				</div>
 			</div>

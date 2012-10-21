@@ -6,7 +6,7 @@ class Location_model extends CI_Model {
 	}
 
 	# Spherical Law of Cosines
-	function distance_slc($lat1, $lon1, $lat2, $lon2) {
+	public function distance_slc($lat1, $lon1, $lat2, $lon2) {
 		$earth_radius = 3960.00; # in miles
 		$delta_lat = $lat2 - $lat1;
 		$delta_lon = $lon2 - $lon1;
@@ -22,6 +22,8 @@ class Location_model extends CI_Model {
 
 	function getAjaxClosestLocations($latlng, $originlat, $originlng, $tag) {
 
+		$results = array();
+
 		$pieces = explode(',', $latlng);
 
 		$array = array(
@@ -31,15 +33,17 @@ class Location_model extends CI_Model {
 		$this->db->select('*')->from('locations')->like($array);
 
 		$location = $this->db->get();
-
-
 		foreach ($location->result_array() as $address) {
 
-//			$distance = distance_slc($originlat, $originlng, $address['lat'], $address['lng']);
+			$distance = $this->distance_slc($originlat, $originlng, $address['lat'], $address['lng']);
 			$test = $originlat . $originlng . $address['lat'] . $address['lng'];
-			var_dump($test);
 
+			if ($distance < 50.0000) {
+				$results[] = $address;
+			}
 		}
+
+		echo json_encode(array('data' => $results));
 
 //		echo json_encode($location->result_array());
 	}
