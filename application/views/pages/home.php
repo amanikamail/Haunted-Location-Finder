@@ -3,29 +3,33 @@
 	<?php if ($filename == 'index') {
 	?>
 
-	<div class="row">
-		<div class="twelve columns">
-			<div id="slides" class="clearfix">
-
-				<div class="twelve columns slide clearfix">
-					<img src="/assets/images/slides/paranormal-activity-3-movie-image-slice.jpg">
-					<div class="text three columns"><p>Find haunted locations near you</p></div>
-				</div>
-
-				<div class="twelve columns slide clearfix">
-					<img src="/assets/images/slides/4901.jpg">
-					<div class="text three columns"><p>Find haunted locations near you</p></div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 	<?php
 }   ?>
 
     <div class="eight columns">
+	    <div class="row">
+		    <div class="twelve columns hide-for-small">
+			    <div id="slides" class="clearfix" style="height:200px;">
 
+				    <div class="slide clearfix">
+					    <img src="/assets/images/slides/paranormal-activity-3-movie-image-slice.jpg">
+					    <div class="text three columns"><p>Find haunted locations near you</p></div>
+				    </div>
+
+				    <div class="slide clearfix">
+					    <img src="/assets/images/slides/4901.jpg">
+					    <div class="text three columns"><p>Find haunted locations near you</p></div>
+				    </div>
+
+			    </div>
+		    </div>
+		    <div class="twelve columns show-for-small">
+			    <div class="slide clearfix">
+				    <img src="/assets/images/slides/paranormal-activity-3-movie-image-slice.jpg">
+				    <div class="text three columns"><p>Find haunted locations near you</p></div>
+			    </div>
+		    </div>
+	    </div>
 
 
 	    <?php
