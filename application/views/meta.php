@@ -34,7 +34,7 @@
 
 <script src="<?php echo base_url();?>assets/js/libs/foundation.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/libs/modernizr.foundation.js"></script>
-
+<script src="<?php echo base_url();?>assets/js/jquery.cycle.js"></script>
 
 
 

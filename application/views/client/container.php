@@ -28,7 +28,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 
-<script src="<?php echo base_url();?>assets/js/jquery_cycle.js"></script>
+<script src="<?php echo base_url();?>assets/js/jquery.cycle.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.cookie.js"></script>
 <script src="<?php echo base_url();?>assets/js/superfish-min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.tablesorter.min.js"></script>

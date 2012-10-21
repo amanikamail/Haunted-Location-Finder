@@ -125,7 +125,7 @@ jQuery(document).ready(function ($) {
 				}
 
 				$.ajax({
-					url: "/client/save_routes",
+					url: "/client/saveOrder",
 					type: "POST",
 					success: function () {
 						console.log('routes updated');
@@ -136,7 +136,7 @@ jQuery(document).ready(function ($) {
 						console.log('routes not updated');
 					}
 
-				})
+				});
 
 
 			}

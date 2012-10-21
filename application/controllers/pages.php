@@ -73,7 +73,9 @@
 				}
 
 				$data['page']          = 'pages/' . $filename;
+
 			} else {
+
 				$data['page']          = 'pages/home';
 			}
 

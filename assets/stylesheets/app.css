@@ -240,7 +240,28 @@ p {
     text-decoration: none;
 }
 
+/* -----------------------------------------
+   Home Slideshow
+----------------------------------------- */
 
+#slides {
+    margin: 15px 0;
+}
+
+.slide {
+    position: relative;
+}
+
+.slide .text {
+    position: absolute;
+    z-index: 100;
+    top: 5px;
+    color: white;
+}
+
+.slide .text p {
+    color: white;
+}
 
 /* -----------------------------------------
    Gallery

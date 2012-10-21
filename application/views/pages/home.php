@@ -2,6 +2,26 @@
 
     <div class="eight columns">
 
+	     <?php if ($filename == 'index') {
+	    ?>
+
+	    <div id="slides" class="clearfix">
+
+		    <div class="slide clearfix">
+			    <img src="/assets/images/slides/paranormal-activity-3-movie-image-slice.jpg">
+			    <div class="text three columns push-eight"><p>Find haunted locations near you</p></div>
+		    </div>
+
+		    <div class="slide clearfix">
+			    <img src="/assets/images/slides/4901.jpg">
+			    <div class="text three columns push-eight"><p>Find haunted locations near you</p></div>
+		    </div>
+
+	    </div>
+
+	    <?php
+    }   ?>
+
 	    <?php
 
 	        echo '<h2>' . $page_content->page_headline . '</h2>';

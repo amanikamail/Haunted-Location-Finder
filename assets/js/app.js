@@ -404,6 +404,13 @@ jQuery(document).ready(function ($) {
 
 	}
 
+	if ($('body').hasClass('index')) {
+		$('#slides').cycle({
+			resizeContainer: false,
+			slideResize: false
+		});
+	}
+
 });
 
 	
